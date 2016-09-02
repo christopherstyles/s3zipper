@@ -109,7 +109,7 @@ func getFilesFromRedis(ref string) (files []*RedisFile, err error) {
 
 	// Testing - enable to test. Remove later.
 	if 1 == 0 && ref == "test" {
-		files = append(files, &RedisFile{FileName: "test.zip", Folder: "", S3Path: "test/test.zip"}) // Edit and dplicate line to test
+		files = append(files, &RedisFile{FileName: "test.zip", Folder: "", S3Path: "test/test.zip"}) // Edit and duplicate line to test
 		return
 	}
 
@@ -119,6 +119,9 @@ func getFilesFromRedis(ref string) (files []*RedisFile, err error) {
 	// Get the value from Redis
 	result, err := redis.Do("GET", "zip:"+ref)
 	if err != nil || result == nil {
+		fmt.Println("-------------")
+		log.Print(err.Error())
+		fmt.Println("-------------")
 		err = errors.New("Access Denied (sorry your link has timed out)")
 		return
 	}
