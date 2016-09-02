@@ -90,7 +90,7 @@ func InitRedis() {
 		MaxIdle:     10,
 		IdleTimeout: 1 * time.Second,
 		Dial: func() (redigo.Conn, error) {
-			return redigo.Dial("tcp", os.Getenv("REDIS_URL"))
+			return redigo.DialURL(os.Getenv("REDIS_URL"))
 		},
 		TestOnBorrow: func(c redigo.Conn, t time.Time) (err error) {
 			_, err = c.Do("PING")
